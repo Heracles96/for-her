@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Nandini 💛</title>
+
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+</head>
+
+<body>
+
+<!-- ===== INTRO ===== -->
+<div id="intro" class="page">
+  <h1>Hey… 👀</h1>
+  <p>Enter at your own risk 😏</p>
+  <button onclick="showPage('menu')">Continue</button>
+</div>
+
+<!-- ===== MENU ===== -->
+<div id="menu" class="page hidden">
+  <h2>Choose what you want 😌</h2>
+
+  <button onclick="showPage('galaxy')">Galaxy ✨</button>
+  <button onclick="showPage('amazing')">Why You're Amazing 💛</button>
+  <button onclick="showPage('meter')">Talking Meter 💬</button>
+  <button onclick="showPage('surprise')">Surprise 😏</button>
+  <button onclick="showPage('adopt')">Adopt Me 🐣</button>
+  <button onclick="showPage('gift')">Special Gift 🎁</button>
+</div>
+
+<!-- ===== GALAXY ===== -->
+<div id="galaxy" class="page hidden">
+  <h2>Tap the stars ✨</h2>
+  <canvas id="galaxyCanvas"></canvas>
+  <button onclick="showPage('menu')">Back</button>
+</div>
+
+<!-- ===== AMAZING ===== -->
+<div id="amazing" class="page hidden">
+  <h2>Find the reasons 💛</h2>
+  <canvas id="amazingCanvas"></canvas>
+  <p id="reasonText"></p>
+  <button onclick="showPage('menu')">Back</button>
+</div>
+
+<!-- ===== METER ===== -->
+<div id="meter" class="page hidden">
+  <h2>Talking to you feels like…</h2>
+
+  <div id="meterBox">
+    <div id="meterFill"></div>
+  </div>
+  <p id="meterMsg">Tap to start</p>
+
+  <button onclick="showPage('menu')">Back</button>
+</div>
+
+<!-- ===== SURPRISE ===== -->
+<div id="surprise" class="page hidden">
+  <h2>Click 😏</h2>
+  <button id="surpriseBtn">Click Me</button>
+  <p id="surpriseText"></p>
+  <button onclick="showPage('menu')">Back</button>
+</div>
+
+<!-- ===== ADOPT ===== -->
+<div id="adopt" class="page hidden">
+  <h2>Adopt Me 🐣</h2>
+
+  <div class="card">
+    <p><b>Name:</b> Harsh</p>
+    <p>Status: Available</p>
+    <p>Weakness: You 💛</p>
+
+    <button id="adoptBtn">Adopt Harsh</button>
+    <p id="adoptMsg"></p>
+  </div>
+
+  <button onclick="showPage('menu')">Back</button>
+</div>
+
+<!-- ===== GIFT ===== -->
+<div id="gift" class="page hidden">
+  <h2>Answer this 👀</h2>
+
+  <p>Who is the most amazing person here?</p>
+
+  <input id="giftInput">
+  <button id="giftBtn">Submit</button>
+
+  <div id="giftCard" class="hidden">
+    🎉 You unlocked a dinner date 🍽
+  </div>
+
+  <button onclick="showPage('menu')">Back</button>
+</div>
+
+</body>
+</html>
