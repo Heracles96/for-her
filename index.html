@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Nandini 💛</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== HOMEPAGE ===== -->
+<div id="homepage" class="page">
+  <h1>Welcome…</h1>
+  <p>This website is all about you 🌟</p>
+  <button id="continueBtn">Continue at your own risk</button>
+</div>
+
+<!-- ===== MENU PAGE ===== -->
+<div id="menu" class="page hidden">
+  <h2>Choose an adventure</h2>
+  <div class="menu-options">
+    <button class="menuBtn" data-target="galaxySection">Galaxy Simulation</button>
+    <button class="menuBtn" data-target="amazingSection">Why You’re Amazing</button>
+    <button class="menuBtn" data-target="meterSection">Talking Meter</button>
+    <button class="menuBtn" data-target="surpriseSection">Click for Surprise</button>
+    <button class="menuBtn" data-target="adoptSection">Adopt Me</button>
+    <button class="menuBtn" data-target="giftSection">Special Gift</button>
+  </div>
+</div>
+
+<!-- ===== GALAXY SIMULATION ===== -->
+<div id="galaxySection" class="page hidden">
+  <h2>Galaxy Simulation ✨</h2>
+  <canvas id="galaxyCanvas"></canvas>
+  <button class="backBtn">Back to Menu</button>
+</div>
+
+<!-- ===== WHY YOU’RE AMAZING ===== -->
+<div id="amazingSection" class="page hidden">
+  <h2>Why You’re Amazing 💛</h2>
+  <canvas id="coolCanvas"></canvas>
+  <div id="coolReasonDisplay"></div>
+  <button class="backBtn">Back to Menu</button>
+</div>
+
+<!-- ===== TALKING METER ===== -->
+<div id="meterSection" class="page hidden">
+  <h2>How much I like talking to you 💬</h2>
+  <div id="meterContainer">
+    <div id="meterFill"></div>
+    <div id="meterText">Click to start</div>
+  </div>
+  <button class="backBtn">Back to Menu</button>
+</div>
+
+<!-- ===== CLICK FOR SURPRISE ===== -->
+<div id="surpriseSection" class="page hidden">
+  <h2>Click for Surprise 🎁</h2>
+  <button id="surpriseBtn">Click Me!</button>
+  <p id="surpriseText"></p>
+  <button class="backBtn">Back to Menu</button>
+</div>
+
+<!-- ===== ADOPT ME ===== -->
+<div id="adoptSection" class="page hidden">
+  <h2>Adopt Me 🐣</h2>
+  <div id="adoptCard">
+    <p>Name: Harsh</p>
+    <p>Type: Slightly distracted human</p>
+    <p>Status: Available for adoption</p>
+    <p>Texting Speed: ⚡ Fast (when it’s you)</p>
+    <p>Focus Level: 📉 Drops around you</p>
+    <p>Humor: 🤷‍♂️ Still under review</p>
+    <p>Interest Level: 📈 Concerningly high</p>
+    <p>Weakness: You 💛</p>
+    <button id="adoptBtn">Adopt Harsh</button>
+    <p id="adoptMsg"></p>
+    <small>Built by Harsh… obviously.</small>
+  </div>
+  <button class="backBtn">Back to Menu</button>
+</div>
+
+<!-- ===== SPECIAL GIFT ===== -->
+<div id="giftSection" class="page hidden">
+  <h2>Claim Your Gift 🎉</h2>
+  <p>Solve this to claim:</p>
+  <p>Who is the most amazing person here?</p>
+  <input type="text" id="giftAnswer" placeholder="Type the answer">
+  <button id="giftBtn">Submit</button>
+  <div id="giftCard" class="hidden">
+    <p>🎟 Congratulations! 🎟</p>
+    <p>You can redeem a dinner whenever you want 🍽</p>
+  </div>
+  <button class="backBtn">Back to Menu</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
