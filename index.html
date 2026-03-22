@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Nandini</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loading">
+  <h2>Loading experience...</h2>
+</div>
+
+<!-- ENTRY LOCK -->
+<section id="entry">
+  <h2>Are you Nandini?</h2>
+  <button onclick="enterSite()">Yes 😏</button>
+</section>
+
+<!-- HOMEPAGE -->
+<section id="home">
+  <div class="center">
+    <h1>This website has no practical purpose…</h1>
+    <p>except to prove a point.</p>
+    <button onclick="goToMenu()">Continue</button>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <h2>Choose what you want to explore</h2>
+  <div class="grid">
+    <div class="card" onclick="openPage('universe')">🌌 Universe</div>
+    <div class="card" onclick="openPage('surprise')">🎲 Surprise</div>
+    <div class="card" onclick="openPage('meter')">📊 Talking Meter</div>
+    <div class="card" onclick="openPage('cool')">🌈 Cool</div>
+    <div class="card" onclick="openPage('adopt')">🐣 Adopt Me</div>
+  </div>
+
+  <div class="offer" onclick="openPage('offer')">
+    🎁 Special Offer (Tap to claim)
+  </div>
+</section>
+
+<!-- UNIVERSE -->
+<section id="universe">
+  <h2>🌌 Universe Simulation</h2>
+  <p>Tap anywhere</p>
+  <button onclick="goBack()">← Back</button>
+</section>
+
+<!-- SURPRISE -->
+<section id="surprise">
+  <h2>🎲 Click for Surprise</h2>
+  <button onclick="showSurprise()">Click me</button>
+  <p id="surpriseText"></p>
+  <button onclick="goBack()">← Back</button>
+</section>
+
+<!-- METER -->
+<section id="meter">
+  <h2>📊 Talking Meter</h2>
+  <input type="range" min="0" max="100" value="0" id="slider">
+  <p id="meterText">Slide to measure</p>
+  <button onclick="goBack()">← Back</button>
+</section>
+
+<!-- COOL -->
+<section id="cool">
+  <h2>🌈 Why You're Cool</h2>
+  <button onclick="showReason()">Show reason</button>
+  <p id="reasonText"></p>
+  <button onclick="goBack()">← Back</button>
+</section>
+
+<!-- ADOPT -->
+<section id="adopt">
+  <h2>🐣 Adopt Me</h2>
+  <p>Name: Harsh</p>
+  <button onclick="adopt()">Adopt Harsh</button>
+  <p id="adoptText"></p>
+  <button onclick="goBack()">← Back</button>
+</section>
+
+<!-- SPECIAL OFFER -->
+<section id="offer">
+  <h2>Answer to claim 🎁</h2>
+  <p>Who is the best person here?</p>
+  <input type="text" id="answer" placeholder="Type here…">
+  <button onclick="checkAnswer()">Submit</button>
+  <p id="offerText"></p>
+  <img id="giftCard" src="https://i.ibb.co/fvHq5YB/gift-card.png" alt="Gift Card" style="display:none;">
+  <button onclick="goBack()">← Back</button>
+</section>
+
+<!-- OUTRO -->
+<section id="outro">
+  <h2>🎉 That’s all!</h2>
+  <p>You can go now… or stay a little longer 😏</p>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
