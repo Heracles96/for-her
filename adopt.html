@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adopt Me 🐣</title>
+
+<style>
+body{
+  margin:0;
+  background:#05070d;
+  color:white;
+  font-family:sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  text-align:center;
+}
+
+/* Card */
+#card{
+  background:#111827;
+  padding:25px;
+  border-radius:15px;
+  width:90%;
+  max-width:400px;
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+/* Sections */
+.section{
+  margin:15px 0;
+}
+
+/* Button */
+button{
+  padding:10px 20px;
+  border:none;
+  border-radius:10px;
+  background:gold;
+  cursor:pointer;
+  font-weight:bold;
+  margin:10px;
+}
+
+/* Return button (secondary) */
+#returnBtn{
+  display:none;
+  background:#333;
+  color:#ccc;
+}
+
+/* Response text */
+#response{
+  margin-top:15px;
+  min-height:50px;
+  transition:0.3s;
+}
+
+/* Footer */
+.footer{
+  margin-top:20px;
+  font-size:0.8em;
+  opacity:0.6;
+}
+
+/* Back */
+#back{
+  position:absolute;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+}
+</style>
+</head>
+
+<body>
+
+<div id="card">
+
+  <h2>🐣 Adopt Me</h2>
+
+  <!-- Profile -->
+  <div class="section">
+    <b>Candidate Details</b><br>
+    Name: Harsh<br>
+    Type: Slightly distracted human<br>
+    Status: Available for adoption
+  </div>
+
+  <!-- Stats -->
+  <div class="section">
+    <b>Stats</b><br>
+    Texting speed: ⚡ Fast (when it’s you)<br>
+    Focus level: 📉 Drops around you<br>
+    Humor: 🤷‍♂️ Still under review<br>
+    Interest level: 📈 Concerningly high
+  </div>
+
+  <!-- Weakness -->
+  <div class="section">
+    <b>Weakness</b><br>
+    You
+  </div>
+
+  <!-- Buttons -->
+  <button id="adoptBtn">Adopt Harsh</button>
+  <button id="returnBtn">Return Parcel 📦</button>
+
+  <!-- Response -->
+  <div id="response"></div>
+
+  <div class="footer">Built by Harsh… obviously.</div>
+
+</div>
+
+<button id="back" onclick="goBack()">Back</button>
+
+<script>
+const adoptBtn = document.getElementById("adoptBtn");
+const returnBtn = document.getElementById("returnBtn");
+const response = document.getElementById("response");
+
+let state = 0;
+
+// ===== ADOPT BUTTON =====
+adoptBtn.onclick = function(){
+
+  // First click
+  if(state === 0){
+    sequence([
+      "Good choice.",
+      "Harsh has been assigned to you.",
+      "Handle with care."
+    ]);
+    state = 1;
+  }
+
+  // Second click
+  else if(state === 1){
+    response.innerText = "Harsh is already yours.";
+    returnBtn.style.display = "inline-block";
+    state = 2;
+  }
+
+  // Further clicks
+  else{
+    response.innerText = "Already yours 😏";
+  }
+};
+
+// ===== RETURN BUTTON =====
+returnBtn.onclick = function(){
+  sequence([
+    "No returns accepted.",
+    "Too late now."
+  ]);
+};
+
+// ===== TEXT SEQUENCE =====
+function sequence(lines){
+  let i = 0;
+
+  function next(){
+    if(i < lines.length){
+      response.style.opacity = 0;
+
+      setTimeout(()=>{
+        response.innerText = lines[i];
+        response.style.opacity = 1;
+        i++;
+        setTimeout(next, 1200);
+      },200);
+    }
+  }
+
+  next();
+}
+
+// ===== BACK =====
+function goBack(){
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
