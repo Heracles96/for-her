@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galaxy ✨</title>
+
+<style>
+body{
+  margin:0;
+  background:#05070d;
+  overflow:hidden;
+  font-family:sans-serif;
+  color:white;
+  text-align:center;
+}
+
+canvas{
+  display:block;
+}
+
+/* Hint text */
+#hint{
+  position:absolute;
+  top:20px;
+  width:100%;
+  opacity:0;
+  transition:1s;
+}
+
+/* Message box */
+#message{
+  position:absolute;
+  bottom:80px;
+  width:100%;
+  text-align:center;
+  font-size:1.2em;
+}
+
+/* Back button */
+#back{
+  position:absolute;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  padding:10px 20px;
+  border:none;
+  border-radius:10px;
+  background:gold;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div id="hint">Try touching the stars...</div>
+<div id="message"></div>
+<button id="back" onclick="goBack()">Back</button>
+
+<canvas id="canvas"></canvas>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// ===== STARS =====
+const stars = [];
+for(let i=0;i<80;i++){
+  stars.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*2,
+    dx:(Math.random()-0.5)*0.3,
+    dy:(Math.random()-0.5)*0.3
+  });
+}
+
+// ===== SPECIAL STARS =====
+const special1 = {
+  x:canvas.width*0.3,
+  y:canvas.height*0.4,
+  r:3,
+  glow:0
+};
+
+const special2 = {
+  x:canvas.width*0.7,
+  y:canvas.height*0.6,
+  r:3,
+  glow:0
+};
+
+// ===== DRAW =====
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  // normal stars
+  stars.forEach(s=>{
+    s.x += s.dx;
+    s.y += s.dy;
+
+    if(s.x<0||s.x>canvas.width) s.dx*=-1;
+    if(s.y<0||s.y>canvas.height) s.dy*=-1;
+
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle="white";
+    ctx.fill();
+  });
+
+  // special star 1 (gold)
+  special1.glow += 0.05;
+  ctx.beginPath();
+  ctx.arc(special1.x, special1.y, special1.r + Math.sin(special1.glow), 0, Math.PI*2);
+  ctx.fillStyle="gold";
+  ctx.fill();
+
+  // special star 2 (soft)
+  special2.glow += 0.04;
+  ctx.beginPath();
+  ctx.arc(special2.x, special2.y, special2.r + Math.sin(special2.glow), 0, Math.PI*2);
+  ctx.fillStyle="#ffeaa7";
+  ctx.fill();
+
+  requestAnimationFrame(draw);
+}
+
+draw();
+
+// ===== HINT APPEAR =====
+setTimeout(()=>{
+  document.getElementById("hint").style.opacity = 1;
+},2000);
+
+// ===== CLICK HANDLING =====
+canvas.addEventListener("click",(e)=>{
+  const x = e.clientX;
+  const y = e.clientY;
+
+  // spark effect
+  createSpark(x,y);
+
+  // special star 1
+  if(distance(x,y,special1.x,special1.y)<15){
+    showMessage1();
+  }
+
+  // special star 2
+  if(distance(x,y,special2.x,special2.y)<15){
+    showMessage2();
+  }
+});
+
+// ===== DISTANCE =====
+function distance(x1,y1,x2,y2){
+  return Math.hypot(x1-x2,y1-y2);
+}
+
+// ===== SPARK EFFECT =====
+function createSpark(x,y){
+  for(let i=0;i<8;i++){
+    ctx.beginPath();
+    ctx.arc(x+Math.random()*10-5,y+Math.random()*10-5,1.5,0,Math.PI*2);
+    ctx.fillStyle="white";
+    ctx.fill();
+  }
+}
+
+// ===== MESSAGES =====
+const msg = document.getElementById("message");
+
+function showMessage1(){
+  msg.innerHTML = "Knew you'd find this one.";
+  setTimeout(()=>{
+    msg.innerHTML = "Some things just stand out... like you.";
+  },1200);
+}
+
+function showMessage2(){
+  msg.innerHTML = "This one was shining just as bright.";
+  setTimeout(()=>{
+    msg.innerHTML = "I've seen something like it before...";
+    setTimeout(()=>{
+      msg.innerHTML = "Was it you? 🤔";
+    },1000);
+  },1200);
+}
+
+// ===== BACK =====
+function goBack(){
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
