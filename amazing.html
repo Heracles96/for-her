@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why You're Amazing 💛</title>
+
+<style>
+body{
+  margin:0;
+  background:#05070d;
+  color:white;
+  font-family:sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  text-align:center;
+  overflow:hidden;
+}
+
+#container{
+  max-width:500px;
+}
+
+/* Text */
+#text{
+  font-size:1.5em;
+  min-height:80px;
+  transition:0.5s;
+}
+
+/* Button */
+button{
+  margin-top:20px;
+  padding:10px 20px;
+  border:none;
+  border-radius:10px;
+  background:gold;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+/* Reasons list */
+#reasons{
+  margin-top:20px;
+  text-align:left;
+  line-height:1.6;
+}
+
+/* Crash effect */
+.crash{
+  animation:shake 0.4s;
+}
+
+@keyframes shake{
+  0%{transform:translateX(0)}
+  25%{transform:translateX(-5px)}
+  50%{transform:translateX(5px)}
+  75%{transform:translateX(-5px)}
+  100%{transform:translateX(0)}
+}
+
+/* Back button */
+#back{
+  position:absolute;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <div id="text"></div>
+  <button id="actionBtn" style="display:none;"></button>
+  <div id="reasons"></div>
+</div>
+
+<button id="back" onclick="goBack()">Back</button>
+
+<script>
+const text = document.getElementById("text");
+const btn = document.getElementById("actionBtn");
+const reasonsDiv = document.getElementById("reasons");
+
+// ===== SEQUENCE =====
+const sequence = [
+"Finding reasons why you're amazing...",
+"Analyzing...",
+"Still counting...",
+"Okay this is getting out of hand..."
+];
+
+let i = 0;
+
+function showNext(){
+  if(i < sequence.length){
+    text.style.opacity = 0;
+
+    setTimeout(()=>{
+      text.innerText = sequence[i];
+      text.style.opacity = 1;
+      i++;
+      setTimeout(showNext, 1400);
+    },400);
+  } else {
+    crash();
+  }
+}
+
+// ===== CRASH =====
+function crash(){
+  text.classList.add("crash");
+
+  setTimeout(()=>{
+    text.classList.remove("crash");
+    text.innerText = "Too many reasons.\nSystem crashed.";
+
+    setTimeout(finalLine, 1500);
+  },500);
+}
+
+// ===== FINAL LINES =====
+function finalLine(){
+  text.innerText = "Guess I'll just say... you're amazing.";
+
+  setTimeout(()=>{
+    text.innerText += "\n\nIf you still want some...\nI can personally tally them.";
+
+    setTimeout(showButton, 1200);
+  },1500);
+}
+
+// ===== SHOW BUTTON =====
+function showButton(){
+  btn.style.display = "inline-block";
+  btn.innerText = "Alright... show me";
+  btn.onclick = startReasons;
+}
+
+// ===== REASONS =====
+const reasons = [
+"Your vibe is different... in a good way.",
+"You make things fun without even trying.",
+"You're one of those people who just makes things better by being there.",
+"Your smile is lowkey contagious.",
+"Even normal conversations aren't normal with you.",
+"Your expressions are actually elite.",
+"You've got way too many talents... it's unfair.",
+"You act calm, but you're actually really strong.",
+"You're someone I can actually trust."
+];
+
+let r = 0;
+
+function startReasons(){
+  btn.innerText = "Next";
+
+  addReason();
+  btn.onclick = nextReason;
+}
+
+function nextReason(){
+  if(r < reasons.length){
+    addReason();
+  } else {
+    finishReasons();
+  }
+}
+
+function addReason(){
+  const p = document.createElement("div");
+  p.innerText = "• " + reasons[r];
+  p.style.opacity = 0;
+
+  reasonsDiv.appendChild(p);
+
+  setTimeout(()=>{
+    p.style.opacity = 1;
+  },100);
+
+  r++;
+}
+
+// ===== FINAL AFTER ALL =====
+function finishReasons(){
+  btn.style.display = "none";
+
+  const end = document.createElement("div");
+  end.innerText = "\nYeah... I wasn't exaggerating.";
+  end.style.marginTop = "20px";
+  end.style.opacity = 0;
+
+  reasonsDiv.appendChild(end);
+
+  setTimeout(()=>{
+    end.style.opacity = 1;
+  },200);
+}
+
+// ===== BACK =====
+function goBack(){
+  window.location.href = "index.html";
+}
+
+// START
+showNext();
+</script>
+
+</body>
+</html>
