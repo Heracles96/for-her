@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You</title>
+
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+</head>
+
+<body>
+
+<!-- ===== ENTRY ===== -->
+<div id="entry" class="screen active">
+  <h1>This site is not for everyone…</h1>
+  <p>Entering may make you smile 👀</p>
+
+  <div class="btn-group">
+    <button onclick="startExperience()">Yes 😏</button>
+    <button onclick="nope()">No 🙄</button>
+  </div>
+
+  <p id="noMsg"></p>
+</div>
+
+<!-- ===== CINEMATIC ===== -->
+<div id="cinematic" class="screen">
+  <p id="cinematicText"></p>
+  <button id="continueBtn" onclick="goToMenu()">Alright… show me</button>
+</div>
+
+<!-- ===== MENU ===== -->
+<div id="menu" class="screen">
+  <h2>So… where do you want to start?</h2>
+
+  <div class="card-container">
+
+    <div class="card" onclick="go('galaxy.html')">
+      <h3>Galaxy ✨</h3>
+      <p>Try touching the stars…</p>
+    </div>
+
+    <div class="card" onclick="go('amazing.html')">
+      <h3>Why You’re Amazing 💛</h3>
+      <p>You might already know… but still.</p>
+    </div>
+
+    <div class="card" onclick="go('meter.html')">
+      <h3>Talking Meter 💬</h3>
+      <p>Let’s measure something random…</p>
+    </div>
+
+    <div class="card" onclick="go('surprise.html')">
+      <h3>Surprise 😏</h3>
+      <p>No expectations. Just click.</p>
+    </div>
+
+    <div class="card" onclick="go('adopt.html')">
+      <h3>Adopt Me 🐣</h3>
+      <p>This might be a bad decision.</p>
+    </div>
+
+    <div class="card special" onclick="go('gift.html')">
+      <h3>Special Gift 🎁</h3>
+      <p>Only if you get it right.</p>
+    </div>
+
+  </div>
+
+  <small class="footer">Take your time… no rush.</small>
+</div>
+
+</body>
+</html>
