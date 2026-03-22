@@ -66,3 +66,9 @@ button{
   margin-top:20px;
   opacity:0.6;
 }
+/* FIX FOR CINEMATIC TEXT SPACING */
+#cinematicText div {
+  margin: 5px 0;
+  letter-spacing: 0.5px;
+  word-spacing: 2px;
+}
