@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Talking Meter 💬</title>
+<title>Talking Meter</title>
 
 <style>
 body{
@@ -18,38 +18,97 @@ body{
   text-align:center;
 }
 
-/* Container */
 #container{
   width:90%;
   max-width:400px;
 }
 
-/* Text */
 #text{
   font-size:1.4em;
-  margin-bottom:30px;
-  min-height:60px;
-  transition:0.3s;
+  margin-bottom:20px;
 }
 
-/* Slider */
-input[type="range"]{
-  width:100%;
-  -webkit-appearance:none;
-  height:6px;
-  border-radius:5px;
-  background:#333;
-  outline:none;
-}
-
-input[type="range"]::-webkit-slider-thumb{
-  -webkit-appearance:none;
-  width:18px;
-  height:18px;
-  border-radius:50%;
-  background:gold;
-  cursor:pointer;
-}
-
-/* Percentage */
 #percent{
+  margin-top:10px;
+}
+
+#back{
+  position:absolute;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  padding:10px;
+  background:gold;
+  border:none;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <div id="text">Let's measure something...</div>
+
+  <input type="range" min="0" max="100" value="20" id="slider">
+
+  <div id="percent">20%</div>
+</div>
+
+<button id="back" onclick="goBack()">Back</button>
+
+<script>
+let slider = document.getElementById("slider");
+let text = document.getElementById("text");
+let percent = document.getElementById("percent");
+
+// intro
+setTimeout(function(){
+  text.innerText = "How much I like talking to you 👀";
+},1500);
+
+// slider move
+slider.oninput = function(){
+  percent.innerText = slider.value + "%";
+
+  let v = slider.value;
+
+  if(v < 20){
+    text.innerText = "That's just wrong 😐";
+  } else if(v < 40){
+    text.innerText = "Try again.";
+  } else if(v < 60){
+    text.innerText = "Still not accurate...";
+  } else if(v < 80){
+    text.innerText = "Getting closer.";
+  } else if(v < 95){
+    text.innerText = "Now we're talking 😌";
+  } else if(v < 100){
+    text.innerText = "Almost honest...";
+  }
+};
+
+// auto move
+slider.onchange = function(){
+  let interval = setInterval(function(){
+    if(slider.value < 100){
+      slider.value++;
+      percent.innerText = slider.value + "%";
+    } else {
+      clearInterval(interval);
+      text.innerText = "Okay... I'll wait for your text 😒";
+
+      setTimeout(function(){
+        text.innerText += "\nDon't take too long.";
+      },1200);
+    }
+  },20);
+};
+
+// back
+function goBack(){
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
