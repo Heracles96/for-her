@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surprise 😏</title>
+
+<style>
+body{
+  margin:0;
+  background:#05070d;
+  color:white;
+  font-family:sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  text-align:center;
+}
+
+#container{
+  width:90%;
+  max-width:450px;
+}
+
+#text{
+  font-size:1.4em;
+  min-height:80px;
+  transition:0.4s;
+}
+
+button{
+  margin:10px;
+  padding:10px 20px;
+  border:none;
+  border-radius:10px;
+  background:gold;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+input{
+  padding:10px;
+  border-radius:8px;
+  border:none;
+  width:80%;
+  margin-top:15px;
+}
+
+/* Gift Card */
+#giftCard{
+  display:none;
+  margin-top:25px;
+  padding:20px;
+  border-radius:15px;
+  border:2px solid gold;
+  animation:fadeScale 0.8s ease;
+}
+
+@keyframes fadeScale{
+  from{
+    opacity:0;
+    transform:scale(0.8);
+  }
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+.small{
+  font-size:0.9em;
+  opacity:0.7;
+  margin-top:10px;
+}
+
+#back{
+  position:absolute;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <div id="text"></div>
+  <div id="options"></div>
+  <div id="giftCard"></div>
+</div>
+
+<button id="back" onclick="goBack()">Back</button>
+
+<script>
+const text = document.getElementById("text");
+const options = document.getElementById("options");
+const gift = document.getElementById("giftCard");
+
+// ===== FLOW START =====
+function start(){
+  sequence([
+    "Okay...",
+    "This one was actually supposed to be special.",
+    "I thought about it a lot...",
+    "Tried to make it perfect...",
+    "But then I realized something.",
+    "It doesn't really matter how fancy it is...",
+    "If it makes you smile, it works.",
+    "So...",
+    "Did it?"
+  ], showChoices);
+}
+
+// ===== TYPE SEQUENCE =====
+function sequence(lines, callback){
+  let i = 0;
+
+  function next(){
+    if(i < lines.length){
+      text.style.opacity = 0;
+
+      setTimeout(()=>{
+        text.innerText = lines[i];
+        text.style.opacity = 1;
+        i++;
+        setTimeout(next, 1400);
+      },300);
+    } else {
+      callback();
+    }
+  }
+
+  next();
+}
+
+// ===== YES / NO =====
+function showChoices(){
+  options.innerHTML = `
+    <button onclick="yesFlow()">Yes 🙂</button>
+    <button onclick="noFlow()">Not yet 😏</button>
+  `;
+}
+
+// ===== YES FLOW =====
+function yesFlow(){
+  options.innerHTML = "";
+
+  sequence([
+    "Since you liked it...",
+    "There's something for you.",
+    "But only if you get this right."
+  ], askQuestion);
+}
+
+// ===== NO FLOW =====
+function noFlow(){
+  options.innerHTML = "";
+  text.innerText = "Hmm...\nI guess I'll have to try harder then 😏";
+}
+
+// ===== QUESTION =====
+function askQuestion(){
+  text.innerText = "One question.\nWho's the most amazing person here?";
+
+  options.innerHTML = `
+    <input id="answer" placeholder="Type your answer">
+    <br>
+    <button onclick="checkAnswer()">Submit</button>
+  `;
+}
+
+// ===== CHECK ANSWER =====
+function checkAnswer(){
+  const ans = document.getElementById("answer").value.trim().toLowerCase();
+
+  if(ans === "nandini"){
+    correctAnswer();
+  } else {
+    text.innerText = "Hmm... try again.";
+  }
+}
+
+// ===== CORRECT =====
+function correctAnswer(){
+  options.innerHTML = "";
+
+  sequence([
+    "Hmm...",
+    "That was easy.",
+    "Alright...",
+    "This is for you."
+  ], showGift);
+}
+
+// ===== GIFT =====
+function showGift(){
+  gift.style.display = "block";
+
+  gift.innerHTML = `
+    <h2>Dinner Voucher 🍽️</h2>
+    <p>Redeemable anytime.</p>
+    <p>No expiry.</p>
+    <p><b>With Harsh.</b></p>
+    <div class="small">Valid only if you actually show up 😏</div>
+  `;
+}
+
+// ===== BACK =====
+function goBack(){
+  window.location.href = "index.html";
+}
+
+// START
+start();
+</script>
+
+</body>
+</html>
