@@ -72,3 +72,20 @@ button{
   letter-spacing: 0.5px;
   word-spacing: 2px;
 }
+#skipIntro{
+  position:absolute;
+  top:20px;
+  right:20px;
+  background:transparent;
+  color:#aaa;
+  border:1px solid #444;
+  padding:6px 12px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:0.9em;
+}
+
+#skipIntro:hover{
+  color:white;
+  border-color:gold;
+}
