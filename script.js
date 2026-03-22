@@ -17,14 +17,14 @@ function nope(){
 
 // ===== CINEMATIC =====
 const lines = [
-"This site wasn’t made for everyone.",
-"In fact… most people wouldn’t even get it.",
-"But somehow…",
-"You’re here.",
-"So yeah… it was made for you.",
-"And the funny part is…",
-"It doesn’t really have a purpose.",
-"Except maybe… making you smile."
+"This site wasn't made for everyone.",
+"In fact... most people wouldn't even get it.",
+"But somehow...",
+"You're here.",
+"So yeah... it was made for you.",
+"And the funny part is...",
+"It doesn't really have a purpose.",
+"Except maybe... making you smile."
 ];
 
 let index = 0;
@@ -33,11 +33,15 @@ function playCinematic(){
   const text = document.getElementById("cinematicText");
   const btn = document.getElementById("continueBtn");
 
+  text.textContent = ""; // clear once
+  index = 0;
+  btn.style.opacity = 0;
+
   function nextLine(){
     if(index < lines.length){
       typeText(lines[index], text, () => {
         index++;
-        setTimeout(nextLine, 800);
+        setTimeout(nextLine, 700);
       });
     }else{
       btn.style.opacity = 1;
@@ -49,15 +53,15 @@ function playCinematic(){
 
 // ===== TYPEWRITER =====
 function typeText(line, element, callback){
-  element.innerText = "";
   let i = 0;
 
   function typing(){
     if(i < line.length){
-      element.innerText += line[i];
+      element.textContent += line.charAt(i);
       i++;
-      setTimeout(typing, 40);
+      setTimeout(typing, 35);
     }else{
+      element.textContent += "\n"; // next line
       callback();
     }
   }
