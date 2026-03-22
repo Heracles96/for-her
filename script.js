@@ -30,16 +30,16 @@ const lines = [
 let index = 0;
 
 function playCinematic(){
-  const text = document.getElementById("cinematicText");
+  const container = document.getElementById("cinematicText");
   const btn = document.getElementById("continueBtn");
 
-  text.textContent = ""; // clear once
+  container.innerHTML = ""; // clear properly
   index = 0;
   btn.style.opacity = 0;
 
   function nextLine(){
     if(index < lines.length){
-      typeText(lines[index], text, () => {
+      typeText(lines[index], container, () => {
         index++;
         setTimeout(nextLine, 700);
       });
@@ -52,16 +52,18 @@ function playCinematic(){
 }
 
 // ===== TYPEWRITER =====
-function typeText(line, element, callback){
+function typeText(line, container, callback){
+  const lineElement = document.createElement("div");
+  container.appendChild(lineElement);
+
   let i = 0;
 
   function typing(){
     if(i < line.length){
-      element.textContent += line.charAt(i);
+      lineElement.innerHTML += line[i];  // 👈 IMPORTANT CHANGE
       i++;
-      setTimeout(typing, 35);
+      setTimeout(typing, 40);
     }else{
-      element.textContent += "\n"; // next line
       callback();
     }
   }
