@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Talking Meter 💬</title>
+
+<style>
+body{
+  margin:0;
+  background:#05070d;
+  color:white;
+  font-family:sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  text-align:center;
+}
+
+/* Intro */
+#intro{
+  position:absolute;
+  max-width:400px;
+  font-size:1.4em;
+  line-height:1.6;
+  transition:0.5s;
+}
+
+/* Main */
+#container{
+  display:none;
+  width:90%;
+  max-width:500px;
+}
+
+h2{
+  margin-bottom:20px;
+}
+
+/* Slider */
+input[type="range"]{
+  width:100%;
+  -webkit-appearance:none;
+  height:8px;
+  border-radius:5px;
+  background:#333;
+  outline:none;
+}
+
+input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:gold;
+  cursor:pointer;
+}
+
+/* Dynamic text */
+#dynamic{
+  margin-top:20px;
+  min-height:50px;
+  font-size:1.2em;
+  transition:opacity 0.3s;
+}
+
+/* Result box */
+#resultBox{
+  margin-top:25px;
+  padding:15px;
+  border-radius:12px;
+  border:1px solid gold;
+  display:none;
+  line-height:1.6;
+}
+
+/* Buttons */
+button{
+  margin-top:20px;
+  padding:10px 20px;
+  border:none;
+  border-radius:10px;
+  background:gold;
+  cursor:pointer;
+}
+
+#back{
+  position:absolute;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+}
+</style>
+</head>
+
+<body>
+
+<div id="intro"></div>
+
+<div id="container">
+  <h2>How much I like talking to you</h2>
+
+  <input type="range" min="0" max="100" value="0" id="slider">
+
+  <div id="dynamic">Try moving it.</div>
+
+  <div id="resultBox"></div>
+
+  <button onclick="resetMeter()">Reset</button>
+</div>
+
+<button id="back" onclick="goBack()">Back</button>
+
+<script>
+const intro = document.getElementById("intro");
+const container = document.getElementById("container");
+const slider = document.getElementById("slider");
+const dynamic = document.getElementById("dynamic");
+const resultBox = document.getElementById("resultBox");
+
+// ===== INTRO =====
+const introLines = [
+"This meter was designed by Dr. Harsh.",
+"It's 100% accurate.",
+"Most people don't get to use it...",
+"It usually costs $100.",
+"But for now...",
+"You can use it for free.",
+"Let's see what it reveals."
+];
+
+let i = 0;
+
+function playIntro(){
+  if(i < introLines.length){
+    intro.style.opacity = 0;
+
+    setTimeout(()=>{
+      intro.innerText = introLines[i];
+      intro.style.opacity = 1;
+      i++;
+      setTimeout(playIntro, 1400);
+    },300);
+  } else {
+    intro.style.opacity = 0;
+
+    setTimeout(()=>{
+      intro.style.display = "none";
+      container.style.display = "block";
+    },600);
+  }
+}
+
+// ===== TEXT SYSTEM =====
+function updateText(val){
+  val = Math.floor(val);
+
+  let msg = "";
+
+  if(val < 10){
+    msg = "No... that's not right.";
+  } else if(val < 20){
+    msg = "Still too low.";
+  } else if(val < 30){
+    msg = "Not even close.";
+  } else if(val < 40){
+    msg = "You're underestimating it.";
+  } else if(val < 50){
+    msg = "Hmm... still not there.";
+  } else if(val < 60){
+    msg = "Getting closer.";
+  } else if(val < 70){
+    msg = "Now you're starting to get it.";
+  } else if(val < 80){
+    msg = "Almost there.";
+  } else if(val < 90){
+    msg = "This is more like it.";
+  } else if(val < 100){
+    msg = "Just a little more.";
+  }
+
+  dynamic.style.opacity = 0;
+  setTimeout(()=>{
+    dynamic.innerText = msg;
+    dynamic.style.opacity = 1;
+  },120);
+}
+
+// ===== AUTO COMPLETE =====
+let reached100 = false;
+
+slider.addEventListener("input", ()=>{
+  if(reached100){
+    slider.value = 100;
+    dynamic.innerText = "That response won't be recorded.";
+    return;
+  }
+
+  updateText(slider.value);
+});
+
+slider.addEventListener("change", ()=>{
+  if(!reached100){
+    autoComplete();
+  }
+});
+
+function autoComplete(){
+  let interval = setInterval(()=>{
+    let val = parseFloat(slider.value);
+
+    if(val < 100){
+      let speed = (100 - val) * 0.08;
+      slider.value = val + speed;
+      updateText(slider.value);
+    } else {
+      slider.value = 100;
+      clearInterval(interval);
+      reached100 = true;
+      showResult();
+    }
+  }, 20);
+}
+
+// ===== RESULT =====
+function showResult(){
+  resultBox.style.display = "block";
+
+  resultBox.innerText = "So yeah...\nIt's this much.";
+
+  setTimeout(()=>{
+    resultBox.innerText += "\n\nI like talking to you that much...";
+  },1200);
+
+  setTimeout(()=>{
+    resultBox.innerText += "\nthat I actually wait for your text.";
+  },2400);
+
+  setTimeout(()=>{
+    resultBox.innerText += "\n\nAnd I don't even mind it.";
+  },3600);
+}
+
+// ===== RESET =====
+function resetMeter(){
+  slider.value = 0;
+  reached100 = false;
+  dynamic.innerText = "Try moving it.";
+  resultBox.style.display = "none";
+  resultBox.innerText = "";
+}
+
+// ===== BACK =====
+function goBack(){
+  window.location.href = "index.html";
+}
+
+// START
+playIntro();
+</script>
+
+</body>
+</html>
