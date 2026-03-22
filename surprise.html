@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surprise 😏</title>
+
+<style>
+body{
+  margin:0;
+  background:#05070d;
+  color:white;
+  font-family:sans-serif;
+  overflow:hidden;
+  text-align:center;
+}
+
+/* Text */
+#text{
+  position:absolute;
+  top:20%;
+  width:100%;
+  font-size:1.4em;
+  transition:0.4s;
+}
+
+/* Buttons */
+button{
+  margin-top:20px;
+  padding:10px 20px;
+  border:none;
+  border-radius:10px;
+  background:gold;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+/* Particles */
+.particle{
+  position:absolute;
+  border-radius:50%;
+  background:rgba(255,215,0,0.7);
+  box-shadow:0 0 10px rgba(255,215,0,0.8);
+  cursor:pointer;
+  transition:transform 0.2s, box-shadow 0.2s;
+}
+
+.particle:hover{
+  transform:scale(1.4);
+  box-shadow:0 0 20px rgba(255,215,0,1);
+}
+
+/* Result */
+#result{
+  position:absolute;
+  top:40%;
+  width:100%;
+  font-size:1.5em;
+  display:none;
+  line-height:1.6;
+}
+
+/* Back */
+#back{
+  position:absolute;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+}
+</style>
+</head>
+
+<body>
+
+<div id="text"></div>
+<div id="result"></div>
+
+<button id="back" onclick="goBack()">Back</button>
+
+<script>
+const text = document.getElementById("text");
+const result = document.getElementById("result");
+
+// ===== SEQUENCE HELPER =====
+function sequence(lines, callback){
+  let i = 0;
+
+  function next(){
+    if(i < lines.length){
+      text.style.opacity = 0;
+
+      setTimeout(()=>{
+        text.innerText = lines[i];
+        text.style.opacity = 1;
+        i++;
+        setTimeout(next, 1400);
+      },300);
+    } else if(callback){
+      callback();
+    }
+  }
+
+  next();
+}
+
+// ===== PHASE 1 =====
+function start(){
+  sequence([
+    "Wait...",
+    "You really clicked this expecting something special, didn’t you?",
+    "Yeah... same.",
+    "But honestly...",
+    "You didn’t need a surprise.",
+    "You already are one."
+  ], showContinue);
+}
+
+// ===== CONTINUE BUTTON =====
+function showContinue(){
+  const btn = document.createElement("button");
+  btn.innerText = "Continue →";
+  btn.onclick = phase2;
+  document.body.appendChild(btn);
+}
+
+// ===== PHASE 2 =====
+function phase2(){
+  document.querySelector("button").remove();
+
+  sequence([
+    "You're still here?",
+    "Alright...",
+    "Fine, I'll get you something.",
+    "But you'll have to earn it."
+  ], startFind);
+}
+
+// ===== PHASE 3 =====
+function startFind(){
+  text.innerText = "Alright...\nFind it.";
+
+  createParticles();
+}
+
+// ===== PARTICLES =====
+function createParticles(){
+
+  // wrong particles
+  for(let i=0; i<10; i++){
+    let p = document.createElement("div");
+    p.className = "particle";
+
+    let size = Math.random()*8 + 6;
+    p.style.width = size + "px";
+    p.style.height = size + "px";
+
+    p.style.top = Math.random()*90 + "%";
+    p.style.left = Math.random()*90 + "%";
+
+    p.onclick = wrongClick;
+
+    animate(p);
+
+    document.body.appendChild(p);
+  }
+
+  // correct particle
+  let correct = document.createElement("div");
+  correct.className = "particle";
+
+  correct.style.width = "14px";
+  correct.style.height = "14px";
+  correct.style.background = "rgba(255,255,200,0.9)";
+  correct.style.boxShadow = "0 0 15px rgba(255,255,200,1)";
+
+  correct.style.top = "60%";
+  correct.style.left = "55%";
+
+  correct.onclick = correctClick;
+
+  animate(correct);
+
+  document.body.appendChild(correct);
+}
+
+// ===== FLOAT ANIMATION =====
+function animate(el){
+  setInterval(()=>{
+    let x = (Math.random()-0.5)*20;
+    let y = (Math.random()-0.5)*20;
+    el.style.transform = `translate(${x}px, ${y}px)`;
+  },2000);
+}
+
+// ===== WRONG CLICK =====
+function wrongClick(){
+  text.innerText = "Nope. Try again.";
+}
+
+// ===== CORRECT CLICK =====
+function correctClick(){
+
+  document.querySelectorAll(".particle").forEach(p=>p.remove());
+  text.style.display = "none";
+
+  result.style.display = "block";
+
+  result.innerText = "There you go.";
+
+  setTimeout(()=>{
+    result.innerText = "Knew you'd find it.";
+  },1200);
+
+  setTimeout(()=>{
+    result.innerText =
+    "Just a little something...\n\nYou make me smile.\nMore than you realize.";
+  },2400);
+}
+
+// ===== BACK =====
+function goBack(){
+  window.location.href = "index.html";
+}
+
+// START
+start();
+</script>
+
+</body>
+</html>
